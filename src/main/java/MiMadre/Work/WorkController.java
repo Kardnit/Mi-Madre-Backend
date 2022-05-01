@@ -18,6 +18,7 @@ public class WorkController {
 
     @PostMapping
     public String postWork(@RequestBody Work work){
+        System.out.println(work);
         workService.handlePost(work);
         return "success";
     }
