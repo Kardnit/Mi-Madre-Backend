@@ -9,12 +9,8 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private final ProductService productService;
+    private ProductService productService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @PostMapping
     public String postProduct(@RequestBody Product product){

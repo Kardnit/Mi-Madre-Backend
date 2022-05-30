@@ -9,12 +9,7 @@ import java.util.List;
 public class PatternDesignController {
 
     @Autowired
-    private final PatternDesignService patternDesignService;
-
-    @Autowired
-    public PatternDesignController(PatternDesignService patternDesignService) {
-        this.patternDesignService = patternDesignService;
-    }
+    private PatternDesignService patternDesignService;
 
     @PostMapping
     public String postPatternDesign(@RequestBody PatternDesign patternDesign){
@@ -23,9 +18,7 @@ public class PatternDesignController {
     }
 
     @GetMapping
-    public List<PatternDesign> getPatternDesigns(){
-        return patternDesignService.getPatternDesigns();
-    }
+    public List<PatternDesign> getPatternDesigns(){ return patternDesignService.getPatternDesigns(); }
 
     @GetMapping("/id/{id}")
     public PatternDesign getPatternDesigns(@PathVariable String id){

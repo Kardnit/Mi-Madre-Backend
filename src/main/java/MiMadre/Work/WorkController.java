@@ -9,12 +9,7 @@ import java.util.List;
 public class WorkController {
 
     @Autowired
-    private final WorkService workService;
-
-    @Autowired
-    public WorkController(WorkService workService) {
-        this.workService = workService;
-    }
+    private WorkService workService;
 
     @PostMapping
     public String postWork(@RequestBody Work work){
