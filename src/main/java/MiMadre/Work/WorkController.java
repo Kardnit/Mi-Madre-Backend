@@ -1,4 +1,5 @@
 package MiMadre.Work;
+import MiMadre._Security.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,8 +12,16 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
+    @Autowired
+    private Jwt jwt;
+
     @PostMapping
-    public String postWork(@RequestBody Work work){
+    public String postWork(@RequestHeader("Authorization") String bearer, @RequestBody Work work){
+        System.out.println(bearer);
+
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
         System.out.println(work);
         workService.handlePost(work);
         return "success";
@@ -29,13 +38,19 @@ public class WorkController {
     }
 
     @PutMapping("/id/{id}")
-    public String putWork(@PathVariable String id , @RequestBody Work work){
+    public String putWork(@RequestHeader("Authorization") String bearer, @PathVariable String id , @RequestBody Work work){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
         workService.handlePut(id, work);
         return "success";
     }
 
     @DeleteMapping
-    public String deleteWork(@RequestBody Work work){
+    public String deleteWork(@RequestHeader("Authorization") String bearer, @RequestBody Work work){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
         workService.handleDelete(work);
         return "success";
     }
