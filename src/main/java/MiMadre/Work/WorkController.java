@@ -32,7 +32,7 @@ public class WorkController {
     }
 
     @GetMapping("/id/{id}")
-    public Work getWork(@PathVariable String id){
+    public Work getWorks(@PathVariable String id){
         return workService.getWorkById(id);
     }
 
