@@ -1,4 +1,5 @@
 package MiMadre.PatternDesign;
+import MiMadre._Security.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,8 +12,16 @@ public class PatternDesignController {
     @Autowired
     private PatternDesignService patternDesignService;
 
+    @Autowired
+    private Jwt jwt;
+
     @PostMapping
-    public String postPatternDesign(@RequestBody PatternDesign patternDesign){
+    public String postPatternDesign(@RequestHeader("Authorization") String bearer, @RequestBody PatternDesign patternDesign){
+
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         patternDesignService.handlePost(patternDesign);
         return "success";
     }
@@ -26,13 +35,21 @@ public class PatternDesignController {
     }
 
     @PutMapping("/id/{id}")
-    public String putPatternDesign(@PathVariable String id , @RequestBody PatternDesign patternDesign){
+    public String putPatternDesign(@RequestHeader("Authorization") String bearer, @PathVariable String id , @RequestBody PatternDesign patternDesign){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         patternDesignService.handlePut(id, patternDesign);
         return "success";
     }
 
     @DeleteMapping
-    public String deletePatternDesign(@RequestBody PatternDesign patternDesign){
+    public String deletePatternDesign(@RequestHeader("Authorization") String bearer, @RequestBody PatternDesign patternDesign){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         patternDesignService.handleDelete(patternDesign);
         return "success";
     }

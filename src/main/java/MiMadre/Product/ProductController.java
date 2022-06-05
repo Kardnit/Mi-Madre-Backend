@@ -1,4 +1,5 @@
 package MiMadre.Product;
+import MiMadre._Security.Jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -11,17 +12,22 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private Jwt jwt;
 
     @PostMapping
-    public String postProduct(@RequestBody Product product){
+    public String postProduct(@RequestHeader("Authorization") String bearer, @RequestBody Product product){
+
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         productService.handlePost(product);
         return "success";
     }
 
     @GetMapping
-    public List<Product> getProducts(){
-        return productService.getProducts();
-    }
+    public List<Product> getProducts(){ return productService.getProducts(); }
 
     @GetMapping("/id/{id}")
     public Product getProduct(@PathVariable String id){
@@ -29,13 +35,21 @@ public class ProductController {
     }
 
     @PutMapping("/id/{id}")
-    public String putProduct(@PathVariable String id , @RequestBody Product product){
+    public String putProduct(@RequestHeader("Authorization") String bearer, @PathVariable String id , @RequestBody Product product){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         productService.handlePut(id, product);
         return "success";
     }
 
     @DeleteMapping
-    public String deleteProduct(@RequestBody Product product){
+    public String deleteProduct(@RequestHeader("Authorization") String bearer, @RequestBody Product product){
+        if(!jwt.validateBearerToken(bearer)){
+            return "Invalid JWT";
+        }
+
         productService.handleDelete(product);
         return "success";
     }

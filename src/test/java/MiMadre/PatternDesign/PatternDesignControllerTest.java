@@ -21,10 +21,11 @@ class PatternDesignControllerTest {
     @Test
     void postPatternDesign_CreatePatternDesign_String() {
         PatternDesign patterndesign = new PatternDesign();
+        String bearer = new String();
 
         Mockito.doNothing().when(service).handlePost(patterndesign);
 
-        controller.postPatternDesign(patterndesign);
+        controller.postPatternDesign(bearer, patterndesign);
     }
 
     @Test
@@ -54,6 +55,7 @@ class PatternDesignControllerTest {
         PatternDesign patterndesign = new PatternDesign();
         PatternDesign oldpatterndesign = new PatternDesign();
         String id = "MyId";
+        String bearer = new String();
 
         Mockito.doReturn(oldpatterndesign).when(service).getPatternDesignById(id);
 
@@ -61,15 +63,16 @@ class PatternDesignControllerTest {
 
         Mockito.doNothing().when(service).handlePost(patterndesign);
 
-        controller.putPatternDesign(id, patterndesign);
+        controller.putPatternDesign(bearer, id, patterndesign);
     }
 
     @Test
     void deletePatternDesign() {
         PatternDesign patterndesign = new PatternDesign();
+        String bearer = new String();
 
         Mockito.doNothing().when(service).handleDelete(patterndesign);
 
-        controller.deletePatternDesign(patterndesign);
+        controller.deletePatternDesign(bearer, patterndesign);
     }
 }

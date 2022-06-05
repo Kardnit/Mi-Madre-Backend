@@ -17,12 +17,11 @@ public class WorkController {
 
     @PostMapping
     public String postWork(@RequestHeader("Authorization") String bearer, @RequestBody Work work){
-        System.out.println(bearer);
 
         if(!jwt.validateBearerToken(bearer)){
             return "Invalid JWT";
         }
-        System.out.println(work);
+
         workService.handlePost(work);
         return "success";
     }
@@ -42,6 +41,7 @@ public class WorkController {
         if(!jwt.validateBearerToken(bearer)){
             return "Invalid JWT";
         }
+
         workService.handlePut(id, work);
         return "success";
     }
@@ -51,6 +51,7 @@ public class WorkController {
         if(!jwt.validateBearerToken(bearer)){
             return "Invalid JWT";
         }
+
         workService.handleDelete(work);
         return "success";
     }
