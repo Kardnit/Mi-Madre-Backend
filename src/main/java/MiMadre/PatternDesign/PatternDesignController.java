@@ -6,7 +6,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "patterndesign")
-
 public class PatternDesignController {
 
     @Autowired

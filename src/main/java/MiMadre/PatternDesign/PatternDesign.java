@@ -1,8 +1,12 @@
 package MiMadre.PatternDesign;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.boot.jackson.JsonComponent;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,45 +16,16 @@ import javax.persistence.Id;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 public class PatternDesign {
-    @Column
-    @Id
+
+    @Column @Id @JsonProperty
     private String id;
-    @Column
+    @Column @JsonProperty
     private String name;
-    @Column
+    @Column @JsonProperty
     private String image;
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @Override
-    public String toString() {
-        return "Pattern Design{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }
